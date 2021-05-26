@@ -7,7 +7,7 @@ function testAdmin {
 
 if ((testAdmin) -eq $false)  {
     if ($elevated) {
-        gimme elevation.
+        gimme elevation mf.
     } 
     else {
         Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -noexit -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))
@@ -20,7 +20,8 @@ Clear-Host
 $title = "winblows 10 post-install"
 $host.UI.RawUI.WindowTitle = $title
 Write-Output "winblows 10 post-install script, made by hmuy"
-Write-Output "dependency: W4RH4WK/Debloat-Windows-10"
+Write-Output "dependant on and made possible by: W4RH4WK/Debloat-Windows-10"
+Write-Output "this script and all the others have no configurations, you have to edit the scripts yourself"
 Read-Host "press enter to continue"
 
 function show-menu {
@@ -41,12 +42,14 @@ function show-menu {
     Write-Host "14: press 14 to disable searchUI"
     Write-Host "15: press 15 to disable prefetch prelaunch"
     Write-Host "16: press 16 to disable edge prelaunch"
+    Write-Host "17: press 17 to install basic software"
     Write-Host "q to quit"
-    Write-Host "======================================================="
+    Write-Host "========================================================"
 }
+
 do {
     show-menu
-    $usrinput = Read-Host "select bruh"
+    $usrinput = Read-Host "select"
     switch ($usrinput) {
         "1" {
             & $PSScriptRoot\scripts\block-telemetry.ps1
