@@ -20,8 +20,8 @@ Clear-Host
 $title = "winblows 10 post-install"
 $host.UI.RawUI.WindowTitle = $title
 Write-Output "winblows 10 post-install script, made by hmuy"
-Write-Output "dependant on and made possible by: W4RH4WK/Debloat-Windows-10"
-Write-Output "this script and all the others have no configurations, you have to edit the scripts yourself"
+Write-Output "an all-in-one script for W4RH4WK/Debloat-Windows-10, plus some extra features"
+Write-Output "this script and all the others have no configurations, you have to edit the scripts yourself :thishowitis:"
 Read-Host "press enter to continue"
 
 function show-menu {
@@ -42,8 +42,12 @@ function show-menu {
     Write-Host "14: press 14 to disable searchUI"
     Write-Host "15: press 15 to disable prefetch prelaunch"
     Write-Host "16: press 16 to disable edge prelaunch"
-    Write-Host "17: press 17 to install basic software"
+    Write-Host "17: press 17 to disable cortana"
+    Write-Host "18: press 18 to set win+x menu to command prompt"
+    Write-Host "19: press 19 to uninstall ie"
+    Write-Host "apps: enter apps to install basic software"
     Write-Host "q to quit"
+    Write-Host "r to restart (recommended after running)"
     Write-Host "========================================================"
 }
 
@@ -100,10 +104,22 @@ do {
             & $PSScriptRoot\utils\disable-edge-prelaunch.reg
         }
         "17" {
+            & $PSScriptRoot\scripts\disable-cortana.ps1
+        }
+        "18" {
+            & $PSScriptRoot\utils\set-winx-menu-cmd.ps1
+        }
+        "19" {
+            & $PSScriptRoot\utils\uninstall-ie.ps1
+        }
+        "apps" {
             & $PSScriptRoot\utils\install-softwares.ps1
         }
         "q" {
             stop-process -id $PID
+        }
+        "r" {
+            Restart-Computer
         }
     }
 }

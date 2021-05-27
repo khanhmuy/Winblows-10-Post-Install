@@ -44,7 +44,9 @@ function show-pkgs {
     Write-Host "18: install discord"
     Write-Host "19: install chrome"
     Write-Host "20: install firefox"
+    Write-Host "21: install winaero tweaker"
     Write-Host "q to quit"
+    Write-Host "return to return to main menu"
     Write-Host "================$title================"
 }
 
@@ -114,6 +116,12 @@ do {
         }
         "20" {
             choco install firefox
+        }
+        "21" {
+            choco install winaero-tweaker
+        }
+        "return" {
+            & $PSScriptRoot\..\post_inst.ps1
         }
     }
 }

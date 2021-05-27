@@ -6,7 +6,7 @@ I have tested these scripts on a Windows 10 Professional 64-Bit (English) virtua
 machine and multiple real Windows 10 Professional (English) installations. Please let [W4RH4WK](https://github.com/W4RH4WK) know if you encounter any issues. Home Edition and different languages are not supported. These scripts are intended for tech-savvy administrators, who know what they are doing and just want to
 automate this phase of their setup. If this profile does not fit you, I
 recommend using a different (more interactive) tool -- and there are a lot of
-them out there.
+them out there. This is by no means a complete set of tweaks for Windows, just some stuff I like to do to my Windows installation to make the thing less fucking annoying, less obtrusive and less resource-hogging. If you want a more complete set of tweaks, i recommend installing Winaero Tweaker
 
 Also, note that gaming-related apps and services will be removed/disabled. If
 you intend to use your system for gaming, adjust the scripts accordingly.
@@ -15,6 +15,8 @@ you intend to use your system for gaming, adjust the scripts accordingly.
 installation (including Windows Updates). Test everything after running them
 before doing anything else. Also, there is no guarantee that everything will
 work after future updates since I cannot predict what Microsoft will do next.
+
+automated options eta s0n
 
 ## Interactivity
 
@@ -38,14 +40,12 @@ Unblock PowerShell scripts and modules within this directory:
 
 ## Usage
 
-Scripts can be run individually, pick what you need.
+Scripts can be run individually through the main script, pick what you need.
 
 1. Install all available updates for your system.
 2. Edit the scripts to fit your need.
-3. Run the scripts you want to apply from a PowerShell with administrator privileges (Explorer
-   `Files > Open Windows PowerShell > Open Windows PowerShell as
-   administrator`) or by right clicking `post_inst.ps1` and select `Run with PowerShell
-6. `PS > Restart-Computer`
+3. Right-click `post_inst.ps1` and select `Run with PowerShell`
+4. Select `restart computer` in the main menu
 
 ## Start menu
 
@@ -76,12 +76,7 @@ If you want to contribute, please contribute to [W4RH4WK/Debloat-Windows-10](htt
 ### Thanks To
 
 - [W4RH4WK](https://github.com/W4RH4WK)
-- [10se1ucgo](https://github.com/10se1ucgo)
-- [Plumebit](https://github.com/Plumebit)
-- [aramboi](https://github.com/aramboi)
-- [maci0](https://github.com/maci0)
-- [narutards](https://github.com/narutards)
-- [tumpio](https://github.com/tumpio)
+- all the people who contributed to W4RH4WK\Debloat-Windows-10
 
 ## License
 
