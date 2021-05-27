@@ -99,6 +99,9 @@ do {
         "16" {
             & $PSScriptRoot\utils\disable-edge-prelaunch.reg
         }
+        "17" {
+            & $PSScriptRoot\utils\install-softwares.ps1
+        }
         "q" {
             stop-process -id $PID
         }
