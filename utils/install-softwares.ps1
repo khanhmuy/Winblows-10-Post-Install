@@ -17,6 +17,8 @@ if ((testAdmin) -eq $false)  {
 
 Clear-Host
 
+Import-Module -DisableNameChecking $PSScriptRoot\..\lib\functions.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\..\lib\take-own.psm1
 $title = "install software - winblows 10 post install"
 $host.UI.RawUI.WindowTitle = $title
 Write-Output "install software"
@@ -45,8 +47,9 @@ function show-pkgs {
     Write-Host "19: install chrome"
     Write-Host "20: install firefox"
     Write-Host "21: install winaero tweaker"
-    Write-Host "q to quit"
-    Write-Host "return to return to main menu"
+    Write-Host '"upgrade"" to upgrade chocolately'
+    Write-Host '"q" to quit'
+    Write-Host '"return" to return to main menu'
     Write-Host "================$title================"
 }
 
@@ -122,6 +125,9 @@ do {
         }
         "return" {
             & $PSScriptRoot\..\post_inst.ps1
+        }
+        "q" {
+            Quit
         }
     }
 }

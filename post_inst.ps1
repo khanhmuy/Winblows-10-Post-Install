@@ -31,7 +31,7 @@ function show-menu {
     Write-Host "1: block telemetry"
     Write-Host "2: disable services"
     Write-Host "3: disable winblows defender (NOT RECOMMENDED)"
-    Write-Host "4: fix privacy settings"
+    Write-Host "4: privacy stuff"
     Write-Host "5: optimize user interface"
     Write-Host "6: optimize windows updates"
     Write-Host "7: remove default uwp apps"
@@ -48,9 +48,9 @@ function show-menu {
     Write-Host "18: to set win+x menu to command prompt"
     Write-Host "19: uninstall ie"
     Write-Host "20: sync time with other os"
-    Write-Host "apps: enter apps to install basic software"
-    Write-Host "q to quit"
-    Write-Host "r to restart (recommended after running)"
+    Write-Host '"apps": install basic software'
+    Write-Host '"q" to quit'
+    Write-Host '"r" to restart (recommended after running)'
     Write-Host "========================================================"
 }
 
@@ -68,11 +68,7 @@ do {
             & $PSScriptRoot\scripts\disable-windows-defender.ps1
         }
         "4" {
-            & $PSScriptRoot\scripts\fix-privacy-settings.ps1
-            DisableAppSuggestions
-            DisableTailoredExperiences
-            DisableAdvertisingID
-            DisableDiagTrack
+            & $PSScriptRoot\scripts\privacy-stuff.ps1
         }
         "5" {
             & $PSScriptRoot\scripts\optimize-user-interface.ps1
@@ -126,10 +122,10 @@ do {
             & $PSScriptRoot\utils\install-softwares.ps1
         }
         "q" {
-            stop-process -id $PID
+            Quit
         }
         "r" {
-            Restart-Computer
+            Restart
         }
     }
 }

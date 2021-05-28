@@ -1,5 +1,5 @@
 #function made by hmuy for khanhmuy\windows10-post-install
-Import-Module -DisableNameChecking $PSScriptRoot\lib\take-own.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\take-own.psm1
 ##functions
 
 function disable-cortana {
@@ -55,6 +55,10 @@ function enable-god-mode {
         New-Item @godmodeSplat
 }
 
+function synctime {
+	& $PSScriptRoot\..\utils\sync_time.reg
+}
+
 ##privacy stuff
 Function DisableAppSuggestions {
     Elevate-Privileges
@@ -87,6 +91,7 @@ Function DisableAppSuggestions {
 		$key = Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\*windows.data.placeholdertilecollection\Current"
 		Set-ItemProperty -Path $key.PSPath -Name "Data" -Type Binary -Value $key.Data[0..15]
 		Stop-Process -Name "ShellExperienceHost" -Force -ErrorAction SilentlyContinue
+		Write-Output "done"
 	}
 }
 
@@ -97,6 +102,7 @@ Function DisableTailoredExperiences {
 		New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Name "DisableTailoredExperiencesWithDiagnosticData" -Type DWord -Value 1
+	Write-Output "done"
 }
 
 Function DisableAdvertisingID {
@@ -106,6 +112,7 @@ Function DisableAdvertisingID {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" -Name "DisabledByGroupPolicy" -Type DWord -Value 1
+	Write-Output "done"
 }
 
 Function DisableDiagTrack {
@@ -113,8 +120,15 @@ Function DisableDiagTrack {
 	Write-Output "Stopping and disabling Connected User Experiences and Telemetry Service..."
 	Stop-Service "DiagTrack" -WarningAction SilentlyContinue
 	Set-Service "DiagTrack" -StartupType Disabled
+	Write-Output "done"
 }
 
-function synctime {
-	& $PSScriptRoot\..\utils\sync_time.reg
+#misc functions
+function Restart {
+	Restart-Computer
 }
+
+function Quit {
+	stop-process -id $PID
+}
+
