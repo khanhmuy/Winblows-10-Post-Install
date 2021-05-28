@@ -17,6 +17,8 @@ if ((testAdmin) -eq $false)  {
 
 Clear-Host
 
+Import-Module -DisableNameChecking $PSScriptRoot\lib\functions.psm1
+Import-Module -DisableNameChecking $PSScriptRoot\lib\take-own.psm1
 $title = "winblows 10 post-install"
 $host.UI.RawUI.WindowTitle = $title
 Write-Output "winblows 10 post-install script, made by hmuy"
@@ -26,25 +28,25 @@ Read-Host "press enter to continue"
 
 function show-menu {
     Write-Host "================$title================"
-    Write-Host "1: press 1 to block telemetry"
-    Write-Host "2: press 2 to disable services"
-    Write-Host "3: press 3 to disable winblows defender (NOT RECOMMENDED)"
-    Write-Host "4: press 4 to fix privacy settings"
-    Write-Host "5: press 5 to optimize user interface"
-    Write-Host "6: press 6 to optimize windows updates"
-    Write-Host "7: press 7 to remove default uwp apps"
-    Write-Host "8: press 8 to remove onedrive"
-    Write-Host "9: press 9 to lower ram usage"
-    Write-Host "10: press 10 to enable windows photo viewer"
-    Write-Host "11: press 11 to disable shellexperiencehost"
-    Write-Host "12: press 12 to enable dark theme"
-    Write-Host "13: press 13 to disable memory compression"
-    Write-Host "14: press 14 to disable searchUI"
-    Write-Host "15: press 15 to disable prefetch prelaunch"
-    Write-Host "16: press 16 to disable edge prelaunch"
-    Write-Host "17: press 17 to disable cortana"
-    Write-Host "18: press 18 to set win+x menu to command prompt"
-    Write-Host "19: press 19 to uninstall ie"
+    Write-Host "1: block telemetry"
+    Write-Host "2: disable services"
+    Write-Host "3: disable winblows defender (NOT RECOMMENDED)"
+    Write-Host "4: fix privacy settings"
+    Write-Host "5: optimize user interface"
+    Write-Host "6: optimize windows updates"
+    Write-Host "7: remove default uwp apps"
+    Write-Host "8: remove onedrive"
+    Write-Host "9: lower ram usage"
+    Write-Host "10: enable windows photo viewer"
+    Write-Host "11: disable shellexperiencehost"
+    Write-Host "12: enable dark theme"
+    Write-Host "13: disable memory compression"
+    Write-Host "14: disable searchUI"
+    Write-Host "15: disable prefetch prelaunch"
+    Write-Host "16: disable edge prelaunch"
+    Write-Host "17: disable cortana"
+    Write-Host "18: to set win+x menu to command prompt"
+    Write-Host "19: uninstall ie"
     Write-Host "apps: enter apps to install basic software"
     Write-Host "q to quit"
     Write-Host "r to restart (recommended after running)"
@@ -66,6 +68,10 @@ do {
         }
         "4" {
             & $PSScriptRoot\scripts\fix-privacy-settings.ps1
+            DisableAppSuggestions
+            DisableTailoredExperiences
+            DisableAdvertisingID
+            DisableDiagTrack
         }
         "5" {
             & $PSScriptRoot\scripts\optimize-user-interface.ps1
@@ -104,13 +110,13 @@ do {
             & $PSScriptRoot\utils\disable-edge-prelaunch.reg
         }
         "17" {
-            & $PSScriptRoot\scripts\disable-cortana.ps1
+            disable-cortana
         }
         "18" {
-            & $PSScriptRoot\utils\set-winx-menu-cmd.ps1
+            set-winx-menu-cmd
         }
         "19" {
-            & $PSScriptRoot\utils\uninstall-ie.ps1
+            uninstall-ie
         }
         "apps" {
             & $PSScriptRoot\utils\install-softwares.ps1
