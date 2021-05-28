@@ -114,3 +114,7 @@ Function DisableDiagTrack {
 	Stop-Service "DiagTrack" -WarningAction SilentlyContinue
 	Set-Service "DiagTrack" -StartupType Disabled
 }
+
+function synctime {
+	& $PSScriptRoot\..\utils\sync_time.reg
+}

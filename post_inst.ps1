@@ -38,7 +38,7 @@ function show-menu {
     Write-Host "8: remove onedrive"
     Write-Host "9: lower ram usage"
     Write-Host "10: enable windows photo viewer"
-    Write-Host "11: disable shellexperiencehost"
+    Write-Host "11: disable shellexperiencehost (may break start menu and action center)"
     Write-Host "12: enable dark theme"
     Write-Host "13: disable memory compression"
     Write-Host "14: disable searchUI"
@@ -47,6 +47,7 @@ function show-menu {
     Write-Host "17: disable cortana"
     Write-Host "18: to set win+x menu to command prompt"
     Write-Host "19: uninstall ie"
+    Write-Host "20: sync time with other os"
     Write-Host "apps: enter apps to install basic software"
     Write-Host "q to quit"
     Write-Host "r to restart (recommended after running)"
@@ -117,6 +118,9 @@ do {
         }
         "19" {
             uninstall-ie
+        }
+        "20" {
+            synctime
         }
         "apps" {
             & $PSScriptRoot\utils\install-softwares.ps1
