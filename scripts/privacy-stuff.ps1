@@ -39,11 +39,12 @@ function privacymenu {
 }
 
 do {
+    Clear-Host
     privacymenu
     $usrinput = Read-Host "select"
     switch ($usrinput) {
         "1" {
-            & fix-privacy-settings.ps1
+            & $PSScriptRoot\fix-privacy-settings.ps1
         }
         "2" {
             DisableAppSuggestions

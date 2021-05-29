@@ -36,27 +36,44 @@ function uninstall-ie {
 }
 
 function set-winx-menu-cmd {
-    Function SetWinXMenuCmd {
-        Write-Output "Setting Command prompt instead of PowerShell in WinX menu..."
-        If ([System.Environment]::OSVersion.Version.Build -le 14393) {
-            Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DontUsePowerShellOnWinX" -ErrorAction SilentlyContinue
-        } Else {
+    Write-Output "Setting Command prompt instead of PowerShell in WinX menu..."
+    If ([System.Environment]::OSVersion.Version.Build -le 14393) {
+    Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DontUsePowerShellOnWinX" -ErrorAction SilentlyContinue
+    } Else {
             Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DontUsePowerShellOnWinX" -Type DWord -Value 1
-        }
     }
 }
 
-function enable-god-mode {
-    $godmodeSplat = @{
-        Path = "$env:USERPROFILEDesktop"
-        Name = "GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}"
-        ItemType = 'Directory'
-        }
-        New-Item @godmodeSplat
+
+Function EnableXboxFeatures {
+	Write-Output "Enabling Xbox features..."
+	Get-AppxPackage -AllUsers "Microsoft.XboxApp" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "Microsoft.XboxIdentityProvider" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "Microsoft.XboxSpeechToTextOverlay" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "Microsoft.XboxGameOverlay" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "Microsoft.XboxGamingOverlay" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "Microsoft.Xbox.TCUI" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "AutoGameModeEnabled" -ErrorAction SilentlyContinue
+	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 1
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR" -Name "AllowGameDVR" -ErrorAction SilentlyContinue
 }
 
 function synctime {
 	& $PSScriptRoot\..\utils\sync_time.reg
+}
+
+Function InstallWSL {
+	Write-Output "Installing Linux Subsystem..."
+	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Windows-Subsystem-Linux" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
+}
+
+Function InstallHyperV {
+	Write-Output "Installing Hyper-V..."
+	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
+		Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Hyper-V-All" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
+	} Else {
+		Install-WindowsFeature -Name "Hyper-V" -IncludeManagementTools -WarningAction SilentlyContinue | Out-Null
+	}
 }
 
 ##privacy stuff
@@ -131,4 +148,3 @@ function Restart {
 function Quit {
 	stop-process -id $PID
 }
-

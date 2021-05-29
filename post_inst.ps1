@@ -21,12 +21,14 @@ Import-Module -DisableNameChecking $PSScriptRoot\lib\functions.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\lib\take-own.psm1
 $title = "winblows 10 post-install"
 $host.UI.RawUI.WindowTitle = $title
-Write-Output "winblows 10 post-install script, made by hmuy"
-Write-Output "an all-in-one script for W4RH4WK/Debloat-Windows-10, plus some extra features"
-Write-Output "this script and all the others have no configurations, you have to edit the scripts yourself :thishowitis:"
-Read-Host "press enter to continue"
+function ShowInfo {
+    Write-Output "winblows 10 post-install script, made by hmuy"
+    Write-Output "an all-in-one script for W4RH4WK/Debloat-Windows-10, plus some extra features"
+    Write-Output "this script and all the others have no configurations, you have to edit the scripts yourself :thishowitis:"
+}
 
-function show-menu {
+
+function Show-Menu {
     Write-Host "================$title================"
     Write-Host "1: block telemetry"
     Write-Host "2: disable services"
@@ -48,6 +50,9 @@ function show-menu {
     Write-Host "18: to set win+x menu to command prompt"
     Write-Host "19: uninstall ie"
     Write-Host "20: sync time with other os"
+    Write-Host "21: enable xbox stuff"
+    Write-Host "22: install wsl"
+    Write-Host "23: install hyper-v"
     Write-Host '"apps": install basic software'
     Write-Host '"q" to quit'
     Write-Host '"r" to restart (recommended after running)'
@@ -55,7 +60,9 @@ function show-menu {
 }
 
 do {
-    show-menu
+    Clear-Host
+    ShowInfo
+    Show-Menu
     $usrinput = Read-Host "select"
     switch ($usrinput) {
         "1" {
@@ -117,6 +124,15 @@ do {
         }
         "20" {
             synctime
+        }
+        "21" {
+            EnableXboxFeatures
+        }
+        "22" {
+            InstallWSL
+        }
+        "23" {
+            InstallHyperV
         }
         "apps" {
             & $PSScriptRoot\utils\install-softwares.ps1
