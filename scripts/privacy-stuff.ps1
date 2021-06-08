@@ -27,11 +27,12 @@ Read-Host "press enter to continue"
 function privacymenu {
     Write-Host "================$title================"
     Write-Host "this is just like, some privacy settings"
-    Write-Host "1: run scripts\fix-privacy-settings.ps1"
-    Write-Host "2: disable app suggestions"
-    Write-Host "3: disable tailored experiences"
-    Write-Host "4: disable advertising id"
-    Write-Host "5: disable diagtrack"
+    Write-Host "1: run scripts\disable-telemetry.ps1"
+    Write-Host "2: run scripts\fix-privacy-settings.ps1"
+    Write-Host "3: disable app suggestions"
+    Write-Host "4: disable tailored experiences"
+    Write-Host "5: disable advertising id"
+    Write-Host "6: disable diagtrack"
     Write-Host '"all" to do all'
     Write-Host '"q" to quit'
     Write-Host '"return" to return to main menu'
@@ -44,21 +45,25 @@ do {
     $usrinput = Read-Host "select"
     switch ($usrinput) {
         "1" {
-            & $PSScriptRoot\fix-privacy-settings.ps1
+            & $PSScriptRoot\block-telemetry.ps1
         }
         "2" {
-            DisableAppSuggestions
+            & $PSScriptRoot\fix-privacy-settings.ps1
         }
         "3" {
-            DisableTailoredExperiences
+            DisableAppSuggestions
         }
         "4" {
-            DisableAdvertisingID
+            DisableTailoredExperiences
         }
         "5" {
+            DisableAdvertisingID
+        }
+        "6" {
             DisableDiagTrack
         }
         "all" {
+            & $PSScriptRoot\block-telemetry.ps1
             & $PSScriptRoot\fix-privacy-settings.ps1
             DisableAppSuggestions
             DisableTailoredExperiences

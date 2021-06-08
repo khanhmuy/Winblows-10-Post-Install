@@ -140,6 +140,66 @@ Function DisableDiagTrack {
 	Write-Output "done"
 }
 
+#sub-scripts
+function Tweaks {
+	function Show-Tweaks {
+		Write-Host "==========small tweaks=========="
+		Write-Host "small tweaks and stuff:"
+		Write-Host "1: lowers ram usage"
+		Write-Host "2: enable windows photo viewer"
+		Write-Host "3: enable dark theme"
+		Write-Host "4: disable memory compression"
+		Write-Host "5: disable prefetch prelaunch"
+		Write-Host "6: disable edge prelaunch"
+		Write-Host "7: set win-x menu to command prompt"
+		Write-Host "8: sets windows to use UTC (allows windows to sync time with other os)"
+		Write-Host "9: (re)enable xbox stuff"
+		Write-Host "10: disable shellexperiencehost (may break start menu and action center)"
+		Write-Host '"return" to return to main menu'
+		Write-Host "================================"
+	}
+	do {
+		Clear-Host
+		Show-Tweaks
+		switch ($usrinput) {
+			"1" {
+				& $PSScriptRoot\..\utils\lower-ram-usage.reg
+			}
+			"2" {
+				& $PSScriptRoot\..\utils\enable-photo-viewer.reg
+			}
+			"3" {
+				& $PSScriptRoot\..\utils\dark-theme.reg
+			}
+			"4" {
+				& $PSScriptRoot\..\utils\disable-memory-compression.ps1
+			}
+			"5" {
+				& $PSScriptRoot\..\utils\disable-prefetch-prelaunch.ps1
+			}
+			"6" {
+				& $PSScriptRoot\..\utils\disable-edge-prelaunch.reg
+			}
+			"7" {
+				set-winx-menu-cmd
+			}
+			"8" {
+				synctime
+			}
+			"9" {
+				EnableXboxFeatures
+			}
+			"10" {
+				& $PSScriptRoot\utils\disable-ShellExperienceHost.bat
+			}
+			"return" {
+				& $PSScriptRoot\..\post_inst.ps1
+			}
+		}
+		$usrinput = Read-Host "select"
+	} until ($usrinput -eq "q")
+}
+
 #misc functions
 function Restart {
 	Restart-Computer
@@ -147,4 +207,11 @@ function Restart {
 
 function Quit {
 	stop-process -id $PID
+}
+
+function Info {
+    Write-Output "windows 10 post-install script, made by hmuy, based on W4RH4WK/Debloat-Windows-10"
+    Write-Output "none of the scripts have configurations, you have to edit them to your liking beforehand :thishowitis:"
+	Write-Output "only windows 10 is supported, obviously"
+	Write-Output "There is no undo, all scripts are provided as-is and you use them at your own risk"
 }

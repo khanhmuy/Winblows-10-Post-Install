@@ -1,9 +1,8 @@
 param([switch]$Elevated)
-
 function testAdmin {
-  $currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
-  $currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
-}
+	$currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
+	$currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+  }
 
 if ((testAdmin) -eq $false)  {
     if ($elevated) {
@@ -35,24 +34,27 @@ function show-pkgs {
     Write-Host "6: install github desktop"
     Write-Host "7: install git"
     Write-Host "8: install python"
+    Write-Host "9: install wsl"
     Write-Host "==========music stuff=========="
-    Write-Host "9: install itunes"
-    Write-Host "10: install spotify"
-    Write-Host "11: install audacity"
+    Write-Host "10: install itunes"
+    Write-Host "11: install spotify"
+    Write-Host "12: install audacity"
     Write-Host "==========gaming/streaming=========="
-    Write-Host "12: install steam"
-    Write-Host "13: install sharex"
-    Write-Host "14: install obs studio"
-    Write-Host "15: install discord"
+    Write-Host "13: install steam"
+    Write-Host "14: install sharex"
+    Write-Host "15: install obs studio"
+    Write-Host "16: install discord"
     Write-Host "==========browsers=========="
-    Write-Host "16: install chrome"
-    Write-Host "17: install firefox"
+    Write-Host "17: install chrome"
+    Write-Host "18: install firefox"
+    Write-Host "==========virtualization=========="
+    Write-Host "19: install hyper-v"
     Write-Host "==========other stuff=========="
-    Write-Host "18: install zoom"
-    Write-Host "19: install skype"
-    Write-Host "20: install 7zip"
-    Write-Host "21: install vlc"
-    Write-Host "22: install winaero tweaker"
+    Write-Host "20: install zoom"
+    Write-Host "21: install skype"
+    Write-Host "22: install 7zip"
+    Write-Host "23: install vlc"
+    Write-Host "24: install winaero tweaker"
     Write-Host '"upgrade"" to upgrade chocolately'
     Write-Host '"q" to quit'
     Write-Host '"return" to return to main menu'
@@ -93,45 +95,51 @@ do {
             choco install python3
         }
         "9" {
-            choco install itunes
+            InstallWSL
         }
         "10" {
-            choco install spotify
+            choco install itunes
         }
         "11" {
-            choco install audacity
+            choco install spotify
         }
         "12" {
-            choco install steam
+            choco install audacity
         }
         "13" {
-            choco install sharex
+            choco install steam
         }
         "14" {
-            choco install obs-studio
+            choco install sharex
         }
         "15" {
-            choco install discord
+            choco install obs-studio
         }
         "16" {
-            choco install googlechrome
+            choco install discord
         }
         "17" {
-            choco install firefox
+            choco install googlechrome
         }
         "18" {
-            choco install zoom
+            choco install firefox
         }
         "19" {
-            choco install skype
+            InstallHyperV
         }
         "20" {
-            choco install 7zip.install
+            choco install zoom
         }
         "21" {
-            choco install vlc
+            choco install skype
         }
         "22" {
+            choco install 7zip.install
+        }
+        "23" {
+            choco install vlc
+        }
+        "24" {
             choco install winaero-tweaker
         }
         "return" {

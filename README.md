@@ -1,12 +1,12 @@
 # winblows-10-post-install
 
-This project is an all-in-one PowerShell script for [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10), plus some extra features
+This project consists of PowerShell scripts for debloating and tweaking Windows 10 after installation, based on [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10)
 
 I have tested these scripts on a Windows 10 Professional 64-Bit (English) virtual
-machine and multiple real Windows 10 Professional (English) installations. Please let [W4RH4WK](https://github.com/W4RH4WK) know if you encounter any issues. Home Edition and different languages are not supported. These scripts are intended for tech-savvy administrators, who know what they are doing and just want to
+machine and multiple real Windows 10 Professional (English) installations. Please let me or [W4RH4WK](https://github.com/W4RH4WK) know if you encounter any issues. Home Edition and different languages are not supported. These scripts are intended for tech-savvy administrators, who know what they are doing and just want to
 automate this phase of their setup. If this profile does not fit you, I
 recommend using a different (more interactive) tool -- and there are a lot of
-them out there. This is by no means a complete set of tweaks for Windows, just some stuff I like to do to my Windows installation to make the thing less fucking annoying, less obtrusive and less resource-hogging. If you want a more complete set of tweaks, i recommend installing Winaero Tweaker.
+them out there. This is by no means a complete set of tweaks for Windows, just some stuff I like to do to my Windows installation to make the thing less fucking annoying, less obtrusive and less resource-hogging. 
 
 Also, note that gaming-related apps and services will be removed/disabled. If
 you intend to use your system for gaming, adjust the scripts accordingly.
@@ -23,7 +23,7 @@ automated options eta s0n
 ## Interactivity
 
 The scripts are designed to run without any user interaction. Modify them
-beforehand. If you want a more interactive approach check out
+beforehand. 
 
 ## Download Latest Version
 
@@ -70,10 +70,6 @@ All the same issues as [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/D
 ## Liability
 
 **All scripts are provided as-is and you use them at your own risk.**
-
-## Contribute
-
-If you want to contribute, please contribute to [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10)
 
 ### Thanks To
 
