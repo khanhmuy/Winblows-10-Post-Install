@@ -19,23 +19,23 @@ Clear-Host
 
 Import-Module -DisableNameChecking $PSScriptRoot\lib\functions.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\lib\take-own.psm1
-$title = "winblows 10 post-install"
+$title = "Windows 10 Post Install Scripts"
 $host.UI.RawUI.WindowTitle = $title
 
 function Show-Menu {
     Write-Host "================$title================"
-    Write-Host "1: privacy stuff"
-    Write-Host "2: disable services"
-    Write-Host "3: disable windows defender (NOT RECOMMENDED)"
-    Write-Host "4: optimize user interface"
-    Write-Host "5: optimize windows updates"
-    Write-Host "6: remove default uwp apps"
-    Write-Host "7: remove onedrive"
-    Write-Host "8: disable searchUI"
-    Write-Host "9: disable cortana"
-    Write-Host "10: uninstall ie"
-    Write-Host '"tweaks": tweaks, duh'
-    Write-Host '"apps": install basic software'
+    Write-Host "1: Privacy Settings"
+    Write-Host "2: Disable Services"
+    Write-Host "3: Disable Windows Defender (NOT RECOMMENDED)"
+    Write-Host "4: Optimize user interface"
+    Write-Host "5: Optimize windows updates"
+    Write-Host "6: Remove default UWP apps"
+    Write-Host "7: Remove OneDrive"
+    Write-Host "8: Disable searchUI"
+    Write-Host "9: Disable Cortana"
+    Write-Host "10: Uninstall IE"
+    Write-Host '"Tweaks": An asortment of system tweaks'
+    Write-Host '"apps": Install basic software'
     Write-Host '"q" to quit'
     Write-Host '"r" to restart (recommended after running)'
     Write-Host "========================================================"
