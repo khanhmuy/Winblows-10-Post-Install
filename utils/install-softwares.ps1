@@ -280,4 +280,4 @@ do {
             & $PSScriptRoot\..\post_inst.ps1
         }
     }
-} until ($true)
+} until ($Selection -eq "69420")
