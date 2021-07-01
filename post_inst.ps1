@@ -35,9 +35,9 @@ function Show-Menu {
     Write-Host "9: Disable Cortana"
     Write-Host "10: Uninstall IE"
     Write-Host '"Tweaks": An asortment of system tweaks'
-    Write-Host '"apps": Install basic software'
+    Write-Host '"Apps": Install basic software'
     Write-Host '"q" to quit'
-    Write-Host '"r" to restart (recommended after running)'
+    Write-Host '"r" to reboot (recommended after running)'
     Write-Host "========================================================"
 }
 

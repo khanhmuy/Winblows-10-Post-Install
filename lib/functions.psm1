@@ -143,19 +143,19 @@ Function DisableDiagTrack {
 #sub-scripts
 function Tweaks {
 	function Show-Tweaks {
-		Write-Host "==========small tweaks=========="
-		Write-Host "small tweaks and stuff:"
-		Write-Host "1: lowers ram usage"
-		Write-Host "2: enable windows photo viewer"
-		Write-Host "3: enable dark theme"
-		Write-Host "4: disable memory compression"
-		Write-Host "5: disable prefetch prelaunch"
-		Write-Host "6: disable edge prelaunch"
-		Write-Host "7: set win-x menu to command prompt"
-		Write-Host "8: sets windows to use UTC (allows windows to sync time with other os)"
-		Write-Host "9: (re)enable xbox stuff"
-		Write-Host "10: disable shellexperiencehost (may break start menu and action center)"
-		Write-Host '"return" to return to main menu'
+		Write-Host "==========System Tweaks=========="
+		Write-Host "System Tweaks:"
+		Write-Host "1: Lower RAM Usage"
+		Write-Host "2: Enable Windows Photo Viewer"
+		Write-Host "3: Enable Dark Theme"
+		Write-Host "4: Disable Memory Compression"
+		Write-Host "5: Disable Prefetch Prelaunch"
+		Write-Host "6: Disable Edge Prelaunch"
+		Write-Host "7: Set win-x menu to CMD"
+		Write-Host "8: Set Windows to use UTC (Allows windows to sync time with other OS installed)"
+		Write-Host "9: (Re)Enable Xbox Programs"
+		Write-Host "10: Disable ShellExperienceHost (May break start menu and action center)"
+		Write-Host '"back" to return to main menu'
 		Write-Host "================================"
 	}
 	do {
@@ -192,7 +192,7 @@ function Tweaks {
 			"10" {
 				& $PSScriptRoot\utils\disable-ShellExperienceHost.bat
 			}
-			"return" {
+			"back" {
 				& $PSScriptRoot\..\post_inst.ps1
 			}
 		}
