@@ -210,8 +210,8 @@ function Quit {
 }
 
 function Info {
-    Write-Output "windows 10 post-install script, made by hmuy, based on W4RH4WK/Debloat-Windows-10"
-    Write-Output "none of the scripts have configurations, you have to edit them to your liking beforehand :thishowitis:"
-	Write-Output "only windows 10 is supported, obviously"
-	Write-Output "There is no undo, all scripts are provided as-is and you use them at your own risk"
+    Write-Output "Windows 10 Post Install Scripts, Made by hmuy, based on W4RH4WK/Debloat-Windows-10"
+    Write-Output "Only the remove default apps script has a config (located at config.ps1), you have to edit the rest to your liking beforehand."
+	Write-Output "Only Windows 10 is supported, However Windows 11 is in testing"
+	Write-Output "There is no undo, all scripts are provided AS-IS and you use them at your own risk"
 }
