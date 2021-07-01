@@ -1,4 +1,4 @@
-# winblows-10-post-install
+# windows-10-post-install
 
 This project consists of PowerShell scripts for debloating and tweaking Windows 10 after installation, based on [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10)
 
