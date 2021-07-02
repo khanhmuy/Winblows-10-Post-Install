@@ -3,9 +3,7 @@
 This project consists of PowerShell scripts for debloating and tweaking Windows 10 after installation, based on [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10)
 
 I have tested these scripts on a Windows 10 Professional 64-Bit (English) virtual
-machine and multiple real Windows 10 Professional (English) installations. Please let me or [W4RH4WK](https://github.com/W4RH4WK) know if you encounter any issues. Home Edition and different languages are not supported. These scripts are intended for tech-savvy administrators, who know what they are doing and just want to
-automate this phase of their setup. If this profile does not fit you, I
-recommend using a different (more interactive) tool -- and there are a lot of
+machine and multiple real Windows 10 Professional (English), currently testing on Windows 11 Insider build 22000.51. Please let me or [W4RH4WK](https://github.com/W4RH4WK) know if you encounter any issues. Home Edition and different languages are not supported. These scripts are intended for tech-savvy administrators, who know what they are doing and just want to automate this phase of their setup. If this profile does not fit you, I recommend using a different (more interactive) tool -- and there are a lot of
 them out there. This is by no means a complete set of tweaks for Windows, just some stuff I like to do to my Windows installation to make the thing less fucking annoying, less obtrusive and less resource-hogging. 
 
 Also, note that gaming-related apps and services will be removed/disabled. If
@@ -18,7 +16,7 @@ work after future updates since I cannot predict what Microsoft will do next.
 
 Also, I would love to just have all the tweaks inside a single script module but i can't for various reasons
 
-automated options eta s0n
+~~automated options eta s0n~~ not for now
 
 ## Interactivity
 
@@ -27,7 +25,7 @@ beforehand.
 
 ## Download Latest Version
 
-- [Download [zip]](https://github.com/W4RH4WK/Debloat-Windows-10/archive/master.zip) for W4RH4WK/Debloat-Windows-10
+- [Download [zip]](https://github.com/khanhmuy/windows10-post-install/archive/refs/heads/master.zip)
 
 ## Execution
 Before launching the script(s), run these commands:
@@ -75,6 +73,7 @@ All the same issues as [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/D
 
 - [W4RH4WK](https://github.com/W4RH4WK)
 - all the people who contributed to W4RH4WK\Debloat-Windows-10
+- [CallMeEcho](https://github.com/CallMeEchoCodes)
 
 ## License
 
