@@ -1,5 +1,7 @@
 # windows-10-post-install
 
+**This is now moved to [WindowsToolbox](https://github.com/WinTweakers/WindowsToolbox), this repo is now archived and we are now [WinTweakers](https://github.com/WinTweakers).**
+
 This project consists of PowerShell scripts for debloating and tweaking Windows 10 after installation, based on [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10). Windows 11 is not supported as of now, but is being tested.
 
 I have tested these scripts on a Windows 10 Professional 64-Bit (English) virtual
