@@ -1,94 +1,151 @@
-param([switch]$Elevated)
-
-function testAdmin {
-  $currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
-  $currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
-}
-
-if ((testAdmin) -eq $false)  {
-    if ($elevated) {
-        gimme elevation mf.
-    } 
-    else {
-        Start-Process powershell.exe -Verb RunAs -ArgumentList ('-noprofile -noexit -file "{0}" -elevated' -f ($myinvocation.MyCommand.Definition))
+if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
+    if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
+        $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
+        Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
+        Exit
     }
-    exit
 }
 
-Clear-Host
-
-Import-Module -DisableNameChecking $PSScriptRoot\lib\functions.psm1
 Import-Module -DisableNameChecking $PSScriptRoot\lib\take-own.psm1
-$title = "Windows 10 Post Install Scripts"
-$host.UI.RawUI.WindowTitle = $title
+Import-Module -DisableNameChecking $PSScriptRoot\lib\functions.psm1
 
-function Show-Menu {
-    Write-Host "================$title================"
-    Write-Host "1: Privacy Settings"
-    Write-Host "2: Disable Services"
-    Write-Host "3: Disable Windows Defender (NOT RECOMMENDED)"
-    Write-Host "4: Optimize user interface"
-    Write-Host "5: Optimize windows updates"
-    Write-Host "6: Remove default UWP apps"
-    Write-Host "7: Remove OneDrive"
-    Write-Host "8: Disable searchUI"
-    Write-Host "9: Disable Cortana"
-    Write-Host "10: Uninstall IE"
-    Write-Host '"Tweaks": An asortment of system tweaks'
-    Write-Host '"Apps": Install basic software'
-    Write-Host '"q" to quit'
-    Write-Host '"r" to reboot (recommended after running)'
-    Write-Host "========================================================"
+$title = "Windows 10 Post Install Scripts"
+$items =
+    "Privacy Settings",
+    "Disable Services",
+    "Disable Windows Defender (NOT RECOMMENDED)",
+    "Optimize User Interface",
+    "Optimize Windows Update",
+    "Remove Default Apps",
+    "Remove OneDrive",
+    "Disable searchUI",
+    "Disable Cortana",
+    "Uninstall IE",
+    "Other Tweaks",
+    "Install Basic Apps",
+    "Quit",
+    "Reboot"
+$host.UI.RawUI.WindowTitle = $title
+function Get-MenuSelection {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param
+    (
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [String[]]$MenuItems,
+        [Parameter(Mandatory = $true)]
+        [String]$MenuPrompt
+    )
+    # store initial cursor position
+    $cursorPosition = $host.UI.RawUI.CursorPosition
+    $pos = 0 # current item selection
+    
+    #==============
+    # 1. Draw menu
+    #==============
+    function Write-Menu
+    {
+        param (
+            [int]$selectedItemIndex
+        )
+        # reset the cursor position
+        $Host.UI.RawUI.CursorPosition = $cursorPosition
+        # Padding the menu prompt to center it
+        $prompt = $MenuPrompt
+        $maxLineLength = ($MenuItems | Measure-Object -Property Length -Maximum).Maximum + 4
+        while ($prompt.Length -lt $maxLineLength+4)
+        {
+            $prompt = " $prompt "
+        }
+        Write-Host $prompt -ForegroundColor Green
+        # Write the menu lines
+        for ($i = 0; $i -lt $MenuItems.Count; $i++)
+        {
+            $line = "    $($MenuItems[$i])" + (" " * ($maxLineLength - $MenuItems[$i].Length))
+            if ($selectedItemIndex -eq $i)
+            {
+                Write-Host $line -ForegroundColor Blue -BackgroundColor Gray
+            }
+            else
+            {
+                Write-Host $line
+            }
+        }
+    }
+    
+    Write-Menu -selectedItemIndex $pos
+    $key = $null
+    while ($key -ne 13)
+    {
+        #============================
+        # 2. Read the keyboard input
+        #============================
+        $press = $host.ui.rawui.readkey("NoEcho,IncludeKeyDown")
+        $key = $press.virtualkeycode
+        if ($key -eq 38)
+        {
+            $pos--
+        }
+        if ($key -eq 40)
+        {
+            $pos++
+        }
+        #handle out of bound selection cases
+        if ($pos -lt 0) { $pos = 0 }
+        if ($pos -eq $MenuItems.count) { $pos = $MenuItems.count - 1 }
+        
+        #==============
+        # 1. Draw menu
+        #==============
+        Write-Menu -selectedItemIndex $pos
+    }
+    
+    return $MenuItems[$pos]
 }
 
 do {
     Clear-Host
-    Info
-    Show-Menu
-    $usrinput = Read-Host "select"
-    switch ($usrinput) {
-        "1" {
+    $Selection = Get-MenuSelection -MenuItems $items -MenuPrompt $title
+    switch ($Selection) {
+        "Privacy Settings" {
             & $PSScriptRoot\scripts\privacy-stuff.ps1
         }
-        "2" {
+        "Disable Services" {
             & $PSScriptRoot\scripts\disable-services.ps1
         }
-        "3" {
+        "Disable Windows Defender (NOT RECOMMENDED)" {
             & $PSScriptRoot\scripts\disable-windows-defender.ps1
         }
-        "4" {
+        "Optimize User Interface" {
             & $PSScriptRoot\scripts\optimize-user-interface.ps1
         }
-        "5" {
+        "Optimize Windows Update" {
             & $PSScriptRoot\scripts\optimize-windows-update.ps1
         }
-        "6" {
+        "Remove Default Apps" {
             & $PSScriptRoot\scripts\remove-default-apps.ps1
         }
-        "7" {
+        "Remove OneDrive" {
             & $PSScriptRoot\scripts\remove-onedrive.ps1
         }
-        "8" {
+        "Disable searchUI" {
             & $PSScriptRoot\utils\disable-searchUI.bat
         }
-        "9" {
+        "Disable Cortana" {
             disable-cortana
         }
-        "10" {
+        "Uninstall IE" {
             uninstall-ie
         }
-        "tweaks" {
+        "Other Tweaks" {
             Tweaks
         }
-        "apps" {
+        "Install Basic Apps" {
             & $PSScriptRoot\utils\install-softwares.ps1
         }
-        "q" {
-            Quit
-        }
-        "r" {
+        "Reboot" {
             Restart
         }
     }
-}
-until ($usrinput -eq "q")
+} until ($Selection -eq "Quit")
