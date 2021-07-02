@@ -1,6 +1,6 @@
 # windows-10-post-install
 
-This project consists of PowerShell scripts for debloating and tweaking Windows 10 after installation, based on [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10)
+This project consists of PowerShell scripts for debloating and tweaking Windows 10 after installation, based on [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10). Windows 11 is not supported as of now, but is being tested.
 
 I have tested these scripts on a Windows 10 Professional 64-Bit (English) virtual
 machine and multiple real Windows 10 Professional (English), currently testing on Windows 11 Insider build 22000.51. Please let me or [W4RH4WK](https://github.com/W4RH4WK) know if you encounter any issues. Home Edition and different languages are not supported. These scripts are intended for tech-savvy administrators, who know what they are doing and just want to automate this phase of their setup. If this profile does not fit you, I recommend using a different (more interactive) tool -- and there are a lot of
@@ -9,10 +9,10 @@ them out there. This is by no means a complete set of tweaks for Windows, just s
 Also, note that gaming-related apps and services will be removed/disabled. If
 you intend to use your system for gaming, adjust the scripts accordingly.
 
-**There is no undo**, I recommend only using these scripts on a fresh
-installation (including Windows Updates). Test everything after running them
+~~**There is no undo**~~ **Undo options in progress**, I recommend only using these scripts on a fresh
+installation (after all updates). Test everything after running them
 before doing anything else. Also, there is no guarantee that everything will
-work after future updates since I cannot predict what Microsoft will do next.
+work after future updates since who the fuck knows what Microsoft will do next.
 
 Also, I would love to just have all the tweaks inside a single script module but i can't for various reasons
 
@@ -64,6 +64,8 @@ is Back], but stop using that shit.
 ## Known Issues
 
 All the same issues as [W4RH4WK/Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10)
+### Support for Windows 11 is in progress, but still unsupported for now
+### Disabling services will fuck up Windows 11
 
 ## Liability
 

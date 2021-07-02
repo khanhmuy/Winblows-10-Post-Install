@@ -11,18 +11,18 @@ Import-Module -DisableNameChecking $PSScriptRoot\lib\functions.psm1
 
 $title = "Windows 10 Post Install Scripts"
 $items =
-    "Privacy Settings",
-    "Disable Services",
+    "Privacy settings",
+    "Disable services",
     "Disable Windows Defender (NOT RECOMMENDED)",
-    "Optimize User Interface",
+    "Optimize user interface",
     "Optimize Windows Update",
-    "Remove Default Apps",
+    "Remove default apps",
     "Remove OneDrive",
     "Disable searchUI",
     "Disable Cortana",
     "Uninstall IE",
-    "Other Tweaks",
-    "Install Basic Apps",
+    "Other tweaks",
+    "Install basic apps",
     "Quit",
     "Reboot"
 $host.UI.RawUI.WindowTitle = $title
@@ -106,24 +106,25 @@ function Get-MenuSelection {
 
 do {
     Clear-Host
+    Info
     $Selection = Get-MenuSelection -MenuItems $items -MenuPrompt $title
     switch ($Selection) {
-        "Privacy Settings" {
+        "Privacy settings" {
             & $PSScriptRoot\scripts\privacy-stuff.ps1
         }
-        "Disable Services" {
+        "Disable services" {
             & $PSScriptRoot\scripts\disable-services.ps1
         }
         "Disable Windows Defender (NOT RECOMMENDED)" {
             & $PSScriptRoot\scripts\disable-windows-defender.ps1
         }
-        "Optimize User Interface" {
+        "Optimize user interface" {
             & $PSScriptRoot\scripts\optimize-user-interface.ps1
         }
         "Optimize Windows Update" {
             & $PSScriptRoot\scripts\optimize-windows-update.ps1
         }
-        "Remove Default Apps" {
+        "Remove default apps" {
             & $PSScriptRoot\scripts\remove-default-apps.ps1
         }
         "Remove OneDrive" {
@@ -138,11 +139,14 @@ do {
         "Uninstall IE" {
             uninstall-ie
         }
-        "Other Tweaks" {
+        "Other tweaks" {
             Tweaks
         }
-        "Install Basic Apps" {
+        "Install basic apps" {
             & $PSScriptRoot\utils\install-softwares.ps1
+        }
+        "Quit" {
+            Quit
         }
         "Reboot" {
             Restart
