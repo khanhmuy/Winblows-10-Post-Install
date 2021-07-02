@@ -49,7 +49,7 @@ $items =
         "Main Menu"
 
 do {
-    $Selection = New-Menu -MenuTitle $title -MenuOptions $items -Columns 3 -MaximumColumnWidth 15 -ShowCurrentSelection $True
+    $Selection = New-Menu -MenuTitle $title -MenuOptions $items -Columns 5 -MaximumColumnWidth 200 -ShowCurrentSelection $True
 
     Clear-Host
     Switch($Selection){

@@ -34,7 +34,7 @@ Get-PackageProvider -Name chocolatey -Force
 
 Write-Output "Setting up Full Chocolatey Install"
 Install-Package -Name Chocolatey -Force -ProviderName chocolatey
-$chocopath = (Get-Package chocolatey | ?{$_.Name -eq "chocolatey"} | Select @{N="Source";E={((($a=($_.Source -split "\\"))[0..($a.length - 2)]) -join "\"),"Tools\chocolateyInstall" -join "\"}} | Select -ExpandProperty Source)
+$chocopath = (Get-Package chocolatey | Where-Object{$_.Name -eq "chocolatey"} | Select-Object @{N="Source";E={((($a=($_.Source -split "\\"))[0..($a.length - 2)]) -join "\"),"Tools\chocolateyInstall" -join "\"}} | Select-Object -ExpandProperty Source)
 & $chocopath "upgrade all -y"
 choco install chocolatey-core.extension --force
 
@@ -49,7 +49,7 @@ $ScheduledJob = @{
 Register-ScheduledJob @ScheduledJob
 
 Write-Output "Installing Packages"
-$packages | %{choco install $_ --force -y}
+$packages | ForEach-Object{choco install $_ --force -y}
 
 Write-Output "Installing Sysinternals Utilities to C:\Sysinternals"
 $download_uri = "https://download.sysinternals.com/files/SysinternalsSuite.zip"
