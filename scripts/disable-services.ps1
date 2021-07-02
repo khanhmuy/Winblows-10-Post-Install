@@ -25,9 +25,14 @@ $services = @(
     # Services which cannot be disabled
     #"WdNisSvc"
 )
-
-foreach ($service in $services) {
-    Write-Output "Trying to disable $service"
-    Get-Service -Name $service | Set-Service -StartupType Disabled
+$yousure = Read-Host "Are you sure? This currently will break Windows 11 (y/n)"
+if ($yousure -eq "y") {
+    foreach ($service in $services) {
+        Write-Output "Trying to disable $service"
+        Get-Service -Name $service | Set-Service -StartupType Disabled
+    }
+    [void][System.Console]::ReadKey($FALSE)
 }
-[void][System.Console]::ReadKey($FALSE)
+else {
+    & $PSScriptRoot\..\post_inst.ps1
+}
