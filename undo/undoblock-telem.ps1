@@ -1,23 +1,15 @@
-#   Description:
-# This script blocks telemetry related domains via the hosts file and related
-# IPs via Windows Firewall.
-#
-# Please note that adding these domains may break certain software like iTunes
-# or Skype. As this issue is location dependent for some domains, they are not
-# commented by default. The domains known to cause issues marked accordingly.
-# Please see the related issue:
-# <https://github.com/W4RH4WK/Debloat-Windows-10/issues/79>
+if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
+    if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
+        $CommandLine = "-File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
+        Start-Process -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
+        Exit
+    }
+}
 
-Import-Module -DisableNameChecking $PSScriptRoot\..\lib\New-FolderForced.psm1
+Write-Output "Unblocking Blocked IPs"
+Remove-NetFirewallRule -DisplayName "Block Telemetry IPs" -ErrorAction SilentlyContinue
 
-Write-Output "Disabling telemetry via Group Policies"
-New-FolderForced -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection"
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" "AllowTelemetry" 0
-
-# Entries related to Akamai have been reported to cause issues with Widevine
-# DRM.
-
-Write-Output "Adding telemetry domains to hosts file"
+Write-Output "Removing telemetry domains from hosts file"
 $hosts_file = "$env:systemroot\System32\drivers\etc\hosts"
 $domains = @(
     "184-86-53-99.deploy.static.akamaitechnologies.com"
@@ -196,29 +188,10 @@ $domains = @(
     "s.gateway.messenger.live.com"
     "ui.skype.com"
 )
-Write-Output "" | Out-File -Encoding ASCII -Append $hosts_file
 foreach ($domain in $domains) {
-    if (-Not (Select-String -Path $hosts_file -Pattern $domain)) {
-        Write-Output "0.0.0.0 $domain" | Out-File -Append $hosts_file
-    }
+        (Get-Content $hosts_file) -notmatch $domain | Out-File $hosts_file
 }
 
-Write-Output "Adding telemetry ips to firewall"
-$ips = @(
-    "134.170.30.202"
-    "137.116.81.24"
-    "157.56.106.189"
-    "184.86.53.99"
-    "2.22.61.43"
-    "2.22.61.66"
-    "204.79.197.200"
-    "23.218.212.69"
-    "65.39.117.230"
-    "65.52.108.33"   # Causes problems with Microsoft Store
-    "65.55.108.23"
-    "64.4.54.254"
-)
-Remove-NetFirewallRule -DisplayName "Block Telemetry IPs" -ErrorAction SilentlyContinue
-New-NetFirewallRule -DisplayName "Block Telemetry IPs" -Direction Outbound `
-    -Action Block -RemoteAddress ([string[]]$ips)
-Read-Host "press enter to continue"
+Write-Output "Changing Group Policy To Allow Telemetry"
+New-FolderForced -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection"
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" "AllowTelemetry" 3
