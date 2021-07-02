@@ -23,6 +23,7 @@ $items =
     "Uninstall IE",
     "Other tweaks",
     "Install basic apps",
+    "Undo Scripts",
     "Quit",
     "Reboot"
 $host.UI.RawUI.WindowTitle = $title
@@ -144,6 +145,9 @@ do {
         }
         "Install basic apps" {
             & $PSScriptRoot\utils\install-softwares.ps1
+        }
+        "Undo Scripts" {
+            & $PSScriptRoot\undo\undo.ps1
         }
         "Quit" {
             Quit
