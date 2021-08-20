@@ -11,13 +11,14 @@ do {} until (Elevate-Privileges SeTakeOwnershipPrivilege)
 
 Write-Output "Uninstalling default apps"
 
+$appxprovisionedpackage = Get-AppxProvisionedPackage -Online
+
 foreach ($app in $apps) {
     Write-Output "Trying to remove $app"
 
     Get-AppxPackage -Name $app -AllUsers | Remove-AppxPackage -AllUsers
 
-    Get-AppXProvisionedPackage -Online |
-        Where-Object DisplayName -EQ $app |
+    ($appxprovisionedpackage).Where( {$_.DisplayName -EQ $app}) |
         Remove-AppxProvisionedPackage -Online
 }
 
